@@ -1,9 +1,9 @@
-package helloworld.server.implement;
+package helloworld.services.implement;
 
 import helloworld.dao.UserDao;
 import helloworld.dao.implement.UserDaoImpl;
 import helloworld.models.UserModel;
-import helloworld.server.UserService;
+import helloworld.services.UserService;
 
 public class UserServiceImpl implements UserService {
 	// Lấy toàn bộ hàm trong tầng Dao của user
