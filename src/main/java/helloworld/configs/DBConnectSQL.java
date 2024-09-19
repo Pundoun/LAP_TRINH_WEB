@@ -12,7 +12,9 @@ public class DBConnectSQL {
 
 	public Connection getConnection() throws Exception {
 		String url = "jdbc:sqlserver://" + serverName + ";databaseName=" + dbName;
+
 		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+
 		return DriverManager.getConnection(url, userID, password);
 	}
 
