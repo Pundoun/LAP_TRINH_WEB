@@ -6,7 +6,7 @@ import java.sql.Date;
 public class UserModel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	// khai báo các trường trong DB
 	// tạo constructor
 	// tạo getters and setters
@@ -19,11 +19,42 @@ public class UserModel implements Serializable {
 	private String fullname;
 	private String images;
 	private String phone;
+	private int status;
 	private int roleid;
 	private Date createdate;
 
 	public UserModel() {
 		super();
+	}
+
+	public UserModel(String username, String email, String password, String fullname, int status, int roleid) {
+		super();
+		this.username = username;
+		this.email = email;
+		this.password = password;
+		this.fullname = fullname;
+		this.status = status;
+		this.roleid = roleid;
+	}
+
+	public UserModel(String username, String email, String fullname) {
+		super();
+		this.username = username;
+		this.email = email;
+		this.fullname = fullname;
+	}
+
+	public UserModel(String username, String email, String password, String fullname, String images,
+			String phone, int roleid, Date createdate) {
+		super();
+		this.username = username;
+		this.email = email;
+		this.password = password;
+		this.fullname = fullname;
+		this.images = images;
+		this.phone = phone;
+		this.roleid = roleid;
+		this.createdate = createdate;
 	}
 
 	public int getId() {
@@ -82,6 +113,14 @@ public class UserModel implements Serializable {
 		this.phone = phone;
 	}
 
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
 	public int getRoleid() {
 		return roleid;
 	}
@@ -98,11 +137,15 @@ public class UserModel implements Serializable {
 		this.createdate = createdate;
 	}
 
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	@Override
 	public String toString() {
 		return "UserModel [id=" + id + ", username=" + username + ", email=" + email + ", password=" + password
-				+ ", fullname=" + fullname + ", images=" + images + ", phone=" + phone + ", roleid=" + roleid
-				+ ", createdate=" + createdate + "]";
+				+ ", fullname=" + fullname + ", images=" + images + ", phone=" + phone + ", status=" + status
+				+ ", roleid=" + roleid + ", createdate=" + createdate + "]";
 	}
 
 }

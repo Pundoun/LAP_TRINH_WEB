@@ -1,10 +1,6 @@
 package helloworld.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-
-import org.eclipse.tags.shaded.org.apache.bcel.classfile.Constant;
-
 import helloworld.models.UserModel;
 import helloworld.services.UserService;
 import helloworld.services.implement.UserServiceImpl;
@@ -18,24 +14,21 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @WebServlet(urlPatterns = { "/login", "/dang-nhap" }) // more than 1 url for page
-
 public class LoginController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
+
+	public static final String SESSION_USERNAME = "username";
+	public static final String COOKIE_REMEMBER = "username";
+
 	// Lấy toàn bộ hàm trong service
 	UserService service = new UserServiceImpl();
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-		// String username = req.getParameter("username"); String password =
-		// req.getParameter("password");
-
-		// PrintWriter out = resp.getWriter();
-		// out.print("hello");
-		RequestDispatcher rd = req.getRequestDispatcher("/views/login.html");
-		rd.forward(req, resp);
-
+		  RequestDispatcher rd = req.getRequestDispatcher("/views/login.jsp");
+		  rd.forward(req, resp);
+		
 	}
 
 	@Override
@@ -43,17 +36,12 @@ public class LoginController extends HttpServlet {
 		resp.setContentType("text/html");
 		resp.setCharacterEncoding("UTF-8");
 		req.setCharacterEncoding("UTF-8");
-//		String a;
-//		String b;
-//		a = req.getParameter("fname");
-//		b = req.getParameter("lname");
-//		PrintWriter out = resp.getWriter();
-//		out.print(a + b);
 
 		// Lấy tham số từ view
-		String username = req.getParameter("uname");
-		String password = req.getParameter("psw");
+		String username = req.getParameter("username");
+		String password = req.getParameter("password");
 		String remember = req.getParameter("remember");
+		System.out.println(username);
 		// kiểm tra tham số
 		boolean isRememberMe = false;
 		if ("on".equals(remember)) {
@@ -63,7 +51,7 @@ public class LoginController extends HttpServlet {
 		if (username.isEmpty() || password.isEmpty()) {
 			alertMsg = "Tài khoản hoặc mật khẩu không được rỗng";
 			req.setAttribute("alert", alertMsg);
-			req.getRequestDispatcher("/views/login.html").forward(req, resp);
+			req.getRequestDispatcher("/views/login.jsp").forward(req, resp);
 			return;
 		}
 		// Xử lý bài toán
@@ -78,16 +66,15 @@ public class LoginController extends HttpServlet {
 		} else {
 			alertMsg = "Tài khoản hoặc mật khẩu không đúng";
 			req.setAttribute("alert", alertMsg);
-			req.getRequestDispatcher("/views/login.html").forward(req, resp);
+			req.getRequestDispatcher("/views/login.jsp").forward(req, resp);
 		}
 
 	}
 
 	private void saveRemeberMe(HttpServletResponse resp, String username) {
-		Cookie cookie = new Cookie(Constant.COOKIE_REMEMBER, username);
+		Cookie cookie = new Cookie(COOKIE_REMEMBER, username);
 		cookie.setMaxAge(30 * 60);
 		resp.addCookie(cookie);
-
 	}
 
 }

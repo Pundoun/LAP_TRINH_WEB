@@ -15,6 +15,10 @@ public class WaitingController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
+	public WaitingController() {
+		super();
+	}
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
@@ -30,5 +34,9 @@ public class WaitingController extends HttpServlet {
 		} else {
 			resp.sendRedirect(req.getContextPath() + "/login");
 		}
+	}
+
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		doGet(req, resp);
 	}
 }

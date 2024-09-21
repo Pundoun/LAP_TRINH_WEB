@@ -11,7 +11,11 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet(urlPatterns = {"/manager/home"})
 public class HomeController extends HttpServlet {
 
-	private static final long serialVersionUID = 1L;
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4704862024968429997L;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
