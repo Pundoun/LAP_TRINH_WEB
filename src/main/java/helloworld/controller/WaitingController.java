@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpSession;
 @WebServlet(urlPatterns = { "/waiting" })
 public class WaitingController extends HttpServlet {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 134L;
 
 	public WaitingController() {
 		super();
