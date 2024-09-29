@@ -8,9 +8,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns = {"/manager/home"})
+@WebServlet(urlPatterns = { "/manager/home" })
 public class HomeController extends HttpServlet {
-
 
 	/**
 	 * 
