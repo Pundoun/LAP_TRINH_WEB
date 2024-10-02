@@ -38,12 +38,20 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public void update(CategoryModel category) {
+		CategoryModel cate = new CategoryModel();
+		cate = cateDao.findById(category.getCategoryid());
+		if (cate != null) {
 		cateDao.update(category);
+		}
 	}
 
 	@Override
 	public void delete(int id) {
-		cateDao.delete(id);
+		CategoryModel cate = new CategoryModel();
+		cate = cateDao.findById(id);
+		if (cate != null) {
+			cateDao.delete(id);
+		}
 	}
 
 	@Override

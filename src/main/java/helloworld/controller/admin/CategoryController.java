@@ -18,7 +18,7 @@ import jakarta.servlet.http.Part;
 
 @MultipartConfig()
 @WebServlet(urlPatterns = { "/admin/categories", "/admin/category/add", "/admin/category/insert",
-		"/admin/category/delete", "/admin/category/edit", "/admin/category/"})
+		"/admin/category/delete", "/admin/category/edit", "/admin/category/update", "/admin/category/search"})
 public class CategoryController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -39,7 +39,12 @@ public class CategoryController extends HttpServlet {
 			int id = Integer.parseInt(req.getParameter("id"));
 			cateService.delete(id);
 			resp.sendRedirect(req.getContextPath() + "/admin/categories");
-		} 
+		} else if (url.contains("/admin/category/edit")) {
+			int id = Integer.parseInt(req.getParameter("id"));
+			CategoryModel category = cateService.findById(id);
+			req.setAttribute("cate", category);
+			req.getRequestDispatcher("/views/admin/category-edit.jsp").forward(req, resp);
+		}
 	}
 
 	@Override
@@ -55,10 +60,11 @@ public class CategoryController extends HttpServlet {
 			// đưa vào Model
 			CategoryModel category = new CategoryModel();
 			category.setCategoryname(categoryname);
+			category.setImages(images);
 			category.setStatus(status);
 			// xử lý upload file
 			String fname = "";
-			String uploadPath = "E:\\upload";
+			String uploadPath = "C:\\upload";
 			File uploadDir = new File(uploadPath);
 			if (!uploadDir.exists()) {
 				uploadDir.mkdir();
@@ -81,13 +87,27 @@ public class CategoryController extends HttpServlet {
 					category.setImages("avatar.png");
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				e.printStackTrace();		
 			}
 
 //			category.setImages(images);
 			// truyền Model vào insert
 			cateService.insert(category);
 			// trả về view
+			resp.sendRedirect(req.getContextPath() + "/admin/categories");
+		} else if (url.contains("/admin/category/update")) {
+			int categoryid = Integer.parseInt(req.getParameter("categoryid"));
+			String categoryname = req.getParameter("categoryname");
+			int status = Integer.parseInt(req.getParameter("status"));
+			String images = req.getParameter("images");
+			
+			CategoryModel category = new CategoryModel();
+			category.setCategoryid(categoryid);
+			category.setCategoryname(categoryname);
+			category.setImages(images);
+			category.setStatus(status);
+			
+			cateService.update(category);
 			resp.sendRedirect(req.getContextPath() + "/admin/categories");
 		}
 	}
